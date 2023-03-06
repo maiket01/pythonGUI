@@ -54,31 +54,4 @@ for x in range(1, maxround+1):
         leftscore -= rand
     print("รอบที่ " + str(x) + " คะแนนทั้งหมด: " + str(score) + "!\n")
 
-print("คะแนนรวมของคุณทั้งหมดคือ" + str(totalscore) + "!")
-
-#ตรวจสอบเกรด
-grade = int(input("input your grade: "))
-
-if grade >= 80:
-    print("Grade: A")
-elif grade >= 70:
-    print("Grade: B")
-elif grade >= 60:
-    print("Grade: C")
-elif grade >= 50:
-    print("Grade: D")
-else:
-    print("Grade: F")
-
-#ตรวจสอบ username and password
-username = str(input("Username: "))
-password = str(input("Password: "))
-
-if username == "admin" and password == "Ad13n@23t":
-    print("Welcome, admin")
-else:
-    print("You are not admin.")
-
-        
-            
-
+print("คะแนนรวมของคุณทั้งหมดคือ" + str(totalscore) + "!")   
