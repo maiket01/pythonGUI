@@ -1,31 +1,65 @@
 from tkinter import *
-root =Tk()
-root.title("โปรแกรมคำนวนพื้นที่วงกลม")
+from tkinter import ttk
 
-#การหาพื้นที่วงกลม
-Label(text="รัศมี",font=30).grid(row=0,sticky=W)            #สรา้งข้อความ
-radius = IntVar ()                                        #ประกาศตัวแปรเพื่อรับข้อมูลเป็นตัวเลข
-et1=Entry(width=30,textvariable=radius,font=30)            #สรา้งกล่องเพื่อมารับข้อมูล
-et1.grid(row=0,column=1)                                  #จัดรูปแบบ
+root = Tk()
+root.title("โปรแกรมแปลงสกุลเงิน")
 
+#ค่าเงินต่อ 1 บาท ไทย
+EUR = 0.028
+JPY = 3.91
+USD = 0.030
+GBP = 0.025
 
+#input
+money = IntVar()
+Label(text="จำนวนเงิน(THB)",padx=10,font=30).grid(row=0,sticky=W)
+et1=Entry(font=30,width=30,textvariable=money)
+et1.grid(row=0,column=1)
 
-Label(text="พื้นที่วงกลม",font=30).grid(row=1,sticky=W)
-et2=Entry(width=30,font=30)
-et2.grid(row=1,column=1)
+choice = StringVar(value="โปรดเลือกสกุลเงิน")
+Label(text="เลือกสกลุเงิน",padx=10,font=30).grid(row=1,sticky=W)
+Combo=ttk.Combobox(width=30,font=30,textvariable=choice)
+Combo["values"]=("EUR","JPY","USD","GBP")
+Combo.grid(row=1,column=1)
 
+#output 
+Label(text="ผลการคำนวน",padx=10,font=30).grid(row=2,sticky=W)
+et2=Entry(font=30,width=30,)
+et2.grid(row=2,column=1)
 
-def caculate():   #เมื่อกดปุ่มคำนวนเเล้วให้เรียกใช้ฟังก์ชั่น
-    et2.delete(0,END)        #ให้ล้างค่าเมื่อมีการคำนวนเสร็จเเล้วไม่ให้กดซ้ำได้
-    r = radius        
-    area = 3.14*r*r
-    et2.insert(0,area)
-     
-def deletetext():   #การล้างค่าออกจากโปรแกรม
+def calculate():
+    amount=money.get()
+    currency=choice.get()
+    if currency == "EUR":
+        et2.delete(0,END)
+        result = (amount*EUR),"EUR(ยูโร)"
+        et2.insert(0,result)
+    elif currency == "JPY":
+        et2.delete(0,END)
+        result = (amount*JPY),"JPY(เยน)"
+        et2.insert(0,result)
+    elif currency == "USD":
+        et2.delete(0,END)
+        result = (amount*USD),"USD(ดอลล่า)"
+        et2.insert(0,result)
+    elif currency == "GBP":
+        et2.delete(0,END)
+        result = (amount*GBP),"GBP(ปอนด์)"
+        et2.insert(0,result)
+    else :
+        et2.delete(0,END)
+        result = "ไม่พบข้อมูล"
+        et2.insert(0,result)
+    
+def clear():
     et1.delete(0,END)
+    et1.insert(0, 0)
     et2.delete(0,END)
-   
+    Combo.delete(0,END)
+    Combo.insert(0,"โปรดเลือกสกุลเงิน")
 
-btn1=Button(text="คำนวน",command=caculate).grid(row=2,column=1,sticky=W)
-btn1=Button(text="ล้าง",command=deletetext).grid(row=2,column=1,sticky=E)
+
+Button(text="คำนวน",font=50,width=15,command=calculate,background="gold").grid(row=3,column=1,sticky=W)
+Button(text="ล้าง",font=50,width=15,command=clear,background="purple").grid(row=3,column=1,sticky=E)
+
 root.mainloop()
